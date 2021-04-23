@@ -18,9 +18,12 @@ $(() => {
     const post = new Post()
 
     // TODO: Validar que el usuario esta autenticado
-
+    const user = firebase.auth().currentUser
+    if(!user){
+      Materialize.toast(`Para crear el post debes estar autenticado`, 4000);
+      return
+    }
     // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
-
     const titulo = $('#tituloNewPost').val()
     const descripcion = $('#descripcionNewPost').val()
     const videoLink = $('#linkVideoNewPost').val()
@@ -37,7 +40,7 @@ $(() => {
         imagenLink,
         videoLink
       )
-      .then(resp => {
+      .then(() => {
         Materialize.toast(`Post creado correctamente`, 4000)
         $('.modal').modal('close')
       })
@@ -52,8 +55,10 @@ $(() => {
     // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
 
     const file = e.target.files[0]
-
+    const user = firebase.auth().currentUser
     // TODO: Referencia al storage
+    const post = new Post()
+    post.subirImagenPost(file, user.uid)
     
   })
 })
