@@ -2,18 +2,55 @@ $(() => {
   $('.tooltipped').tooltip({ delay: 50 })
   $('.modal').modal()
 
-  // TODO: Adicionar el service worker
-
   // Init Firebase nuevamente
   firebase.initializeApp(varConfig);
-
+  
   // TODO: Registrar LLave publica de messaging
+  const messaging = firebase.messaging();
+  messaging.usePublicVapidKey("BNUudqt6UFpisYrfc3F-U1aa2yHS1e1rCcjrHGxk2aJzO9m9udPmggXO9Z_c2NVFgG4Q5rX4ImCOFNvGwYySvyg")
 
+  // TODO: Adicionar el service worker
+  messaging.getToken({ vapidKey: 'BNUudqt6UFpisYrfc3F-U1aa2yHS1e1rCcjrHGxk2aJzO9m9udPmggXO9Z_c2NVFgG4Q5rX4ImCOFNvGwYySvyg' }).then((currentToken) => {
+    if (currentToken) {
+      console.log("Service worker registrado");
+    } else {
+      // Show permission request UI
+      console.log('Se se obtuvo token por puede que sea falta de permisos.');
+    }
+  }).catch((err) => {
+    console.error(`Error al registar el service worker => ${error}`);
+  });
+  
   // TODO: Solicitar permisos para las notificaciones
+  Notification.requestPermission()
+    .then(() => {
+      console.log("permiso otorgado");
+      return messaging.getToken();
+    })
+    .then(token => {
+      console.log("Token: ",token);
+      const db = firebase.firestore()
+      db.collection('tokens').doc(token).set({token})
+    })
+    .catch( error => console.error(`Error al insertar el stoken en la BD => ${error}`));
+
+  // TODO: Obtener el token cuando se refresca
+  messaging.onTokenRefresh(() => {
+    messaging.getToken()
+      .then(token => {
+        console.log("token se ha  renovado");
+        const db = firebase.firestore()
+        //db.settings({timestampsInSnapshots: true})
+        db.collection('tokens').doc(token).set({token})
+      })
+      // catch?
+      .catch( error => console.err(`Error al insertar el stoken en la BD => ${error}`))
+  })
 
   // TODO: Recibir las notificaciones cuando el usuario esta foreground
-
-  // TODO: Recibir las notificaciones cuando el usuario esta background
+  messaging.onMessage(payload => {
+    Materialize.toast(`${payload.data.titulo}`, 6000);
+  })
 
   // TODO: Listening real time
   const post = new Post();
