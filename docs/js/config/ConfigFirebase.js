@@ -1,9 +1,9 @@
 const varConfig = {
-    apiKey: "AIzaSyBJ1DbqvnlbXOHYP5NyWICWB25iG4k8crU",
-    authDomain: "blogeekfrancis.firebaseapp.com",
-    projectId: "blogeekfrancis",
-    storageBucket: "blogeekfrancis.appspot.com",
-    messagingSenderId: "1045941202853",
-    appId: "1:1045941202853:web:03ece8f32098294945024c",
-    measurementId: "G-J3M9YEYVP8"
+	apiKey: "AIzaSyBXcRz9FhtwAisVnbTE7PLbq93DMNKlzBs",
+	authDomain: "francis-projects.firebaseapp.com",
+	projectId: "francis-projects",
+	storageBucket: "francis-projects.appspot.com",
+	messagingSenderId: "1000396606347",
+	appId: "1:1000396606347:web:2fd6d7b95246c3790c7d8e",
+	measurementId: "G-Q184QXZ4Y4"
 };
