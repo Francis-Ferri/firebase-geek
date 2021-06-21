@@ -15,9 +15,7 @@ class Post {
 				videoLink,
 				fecha: firebase.firestore.Timestamp.fromDate(new Date())
 			})
-			.then((refDoc) => {
-				console.log(`ID del Post ${refDoc.id}`);
-			})
+			.then((refDoc) => {})
 			.catch((error) => {
 				console.error(`Erro: creando el post => ${error}`);
 			});
@@ -73,7 +71,6 @@ class Post {
 							imagenLink,
 							fecha
 						);
-						console.log(postHtml);
 						$("#posts").append(postHtml);
 					});
 				}
@@ -97,7 +94,6 @@ class Post {
 				task.snapshot.ref
 					.getDownloadURL()
 					.then((url) => {
-						console.log(url);
 						sessionStorage.setItem("imgNewPost", url);
 					})
 					.catch((err) => {

@@ -29,9 +29,8 @@ class Autenticacion {
 				});
 
 				const configuracion = {
-					// TODO: Reemplazar por produccion
-					// url: "https://francis-projects.web.app/index.html"
-					url: "http://localhost:5500/docs/index.html"
+					url: "https://francis-projects.web.app/index.html"
+					// url: "http://localhost:5500/docs/index.html"
 				};
 
 				result.user.sendEmailVerification(configuracion).catch((error) => {

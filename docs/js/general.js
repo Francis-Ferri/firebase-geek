@@ -32,7 +32,7 @@ $(() => {
 			return messaging.getToken();
 		})
 		.then((token) => {
-			console.log("Token: ", token);
+			// console.log("Token: ", token);
 			const db = firebase.firestore();
 			db.collection("tokens").doc(token).set({ token });
 		})

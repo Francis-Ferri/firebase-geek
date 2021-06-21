@@ -2,3 +2,4 @@ node_modules
 # ConfigFirebase.js
 # firebase-messaging-sw.js
 dist
+firebase-debug.log
